@@ -22,6 +22,11 @@
     "links": {
       "via": "company",
       "collection": "links"
+    },
+    "users": {
+      "via": "company",
+      "plugin": "users-permissions",
+      "collection": "user"
     }
   }
 }

@@ -62,6 +62,10 @@
     "Name": {
       "type": "string",
       "required": true
+    },
+    "company": {
+      "model": "companies",
+      "via": "users"
     }
   }
 }
