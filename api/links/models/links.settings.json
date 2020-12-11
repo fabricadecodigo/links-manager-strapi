@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "links",
+  "info": {
+    "name": "Links",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "ativo": {
+      "type": "boolean"
+    },
+    "company": {
+      "model": "companies",
+      "via": "links"
+    }
+  }
+}
