@@ -29,7 +29,7 @@
       "path": "/companies",
       "handler": "companies.create",
       "config": {
-        "policies": ["global::hasCompany"]
+        "policies": []
       }
     },
     {
