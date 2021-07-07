@@ -32,7 +32,7 @@ module.exports = {
       company: ctx.state.user.company,
     });
 
-    return sanitizeEntity(entity, { model: strapi.models.companies });
+    return sanitizeEntity(entity, { model: strapi.models.links });
   },
 
   async create(ctx) {
@@ -44,33 +44,22 @@ module.exports = {
 
   async update(ctx) {
     const { id } = ctx.params;
+    const link = await strapi.services.links.findOne({ id });
 
-    ctx.request.body.company = ctx.state.user.company;
-
-    const [link] = await strapi.services.links.find({
-      id: ctx.params.id,
-      "company.id": ctx.state.user.company,
-    });
-
-    if (!link) {
-      return ctx.unauthorized(`Você não pode atualizar esse link`);
+    if (link && link.company.id !== ctx.state.user.company) {
+      return ctx.unauthorized('Você não pode deletar esse link');
     }
 
     const entity = await strapi.services.links.update({ id }, ctx.request.body);
-
     return sanitizeEntity(entity, { model: strapi.models.links });
   },
 
   async delete(ctx) {
     const { id } = ctx.params;
+    const link = await strapi.services.links.findOne({ id });
 
-    const [link] = await strapi.services.links.find({
-      id: ctx.params.id,
-      "company.id": ctx.state.user.company,
-    });
-
-    if (!link) {
-      return ctx.unauthorized(`Você não pode deletar esse link`);
+    if (link && link.company.id !== ctx.state.user.company) {
+      return ctx.unauthorized('Você não pode deletar esse link');
     }
 
     const entity = await strapi.services.links.delete({ id });
